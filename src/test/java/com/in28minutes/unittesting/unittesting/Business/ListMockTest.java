@@ -1,6 +1,7 @@
 package com.in28minutes.unittesting.unittesting.Business;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class ListMockTest {
 
     @Test
     public void verificationBasics() {
-
         String value1 = mock.get(0);
         String value2 = mock.get(1);
 
@@ -51,6 +51,15 @@ public class ListMockTest {
         verify(mock, atLeastOnce()).get(anyInt());
         verify(mock, atMost(2)).get(anyInt());
         verify(mock, never()).get(2);
+    }
 
+    @Test
+    public void argumentCapturing() {
+        mock.add("SomeString");
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock).add(captor.capture());
+
+        assertEquals("SomeString",captor.getValue());
     }
 }
