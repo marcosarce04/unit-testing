@@ -62,4 +62,17 @@ public class ListMockTest {
 
         assertEquals("SomeString",captor.getValue());
     }
+
+    @Test
+    public void multipleArgumentCapturing() {
+        mock.add("SomeString");
+        mock.add("SomeString1");
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock, times(2)).add(captor.capture());
+
+        List<String> allValues = captor.getAllValues();
+        assertEquals("SomeString",allValues.get(0));
+        assertEquals("SomeString1",allValues.get(1));
+    }
 }
