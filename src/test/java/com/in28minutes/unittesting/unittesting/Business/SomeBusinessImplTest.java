@@ -1,5 +1,6 @@
 package com.in28minutes.unittesting.unittesting.Business;
 
+import com.in28minutes.unittesting.unittesting.Data.SomeDataService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +16,22 @@ class SomeBusinessImplTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    class SomeDataServiceStub implements SomeDataService {
 
+        @Override
+        public int[] retrieveAllData() {
+            return new int[] {1,2,3};
+        }
+    }
+
+    @Test
+    public void calculateSumUsingDataService_basic() {
+        SomeBusinessImpl business = new SomeBusinessImpl();
+        business.setSomeDataService(new SomeDataServiceStub());
+        int actualResult = business.calculateSumUsingDataService();
+        int expectedResult = 6;
+
+        assertEquals(expectedResult, actualResult);
+    }
 
 }
