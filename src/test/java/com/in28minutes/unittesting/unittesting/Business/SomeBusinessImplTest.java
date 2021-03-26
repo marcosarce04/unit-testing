@@ -1,13 +1,16 @@
 package com.in28minutes.unittesting.unittesting.Business;
 
 import com.in28minutes.unittesting.unittesting.Data.SomeDataService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 class SomeBusinessImplTest {
 
     @Test
@@ -34,15 +37,15 @@ class SomeBusinessImplTest {
 
         assertEquals(expectedResult, actualResult);
     }
-    ////////////mocking///////////////////////////////////////
 
+
+    ///////////////////////////////////////mocking///////////////////////////////////////
+
+    @InjectMocks
     SomeBusinessImpl business = new SomeBusinessImpl();
-    SomeDataService dataServiceMock = mock(SomeDataService.class);
 
-    @BeforeEach
-    public void before() {
-        business.setSomeDataService(dataServiceMock);
-    }
+    @Mock
+    SomeDataService dataServiceMock;
 
     @Test
     public void calculateSumUsingDataService2_basic() {
